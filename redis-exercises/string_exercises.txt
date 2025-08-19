@@ -1,0 +1,90 @@
+# Redis String Exercises - Single Code Example
+
+
+1. Set the string value "Alice" for key user:1000
+
+
+SET user:1000 "Alice"
+
+
+2. Get the value of key user:1000
+
+
+GET user:1000
+
+
+3. Set numeric value 5 for key user:1001 and increment it by 1
+
+
+SET user:1001 5
+INCR user:1001
+
+
+4. Append the string " and Bob" to key user:1000
+
+
+APPEND user:1000 " and Bob"
+
+
+5. Set multiple keys at once: user:1000 → "Alice", user:2000 → 
+"Bob"
+
+
+MSET user:1000 "Alice" user:2000 "Bob"
+
+
+6. Set numeric value 5 for key user:1001 and decrement it by 1
+
+
+SET user:1001 5
+DECR user:1001
+
+
+7. Set numeric value 5 for key user:1001 and increment it by 3
+
+
+SET user:1001 5
+INCRBY user:1001 3
+
+
+8. Set numeric value 5 for key user:1001 and decrement it by 3
+
+
+SET user:1001 5
+DECRBY user:1001 3
+
+
+9. Get the length of the string stored at key user:1000
+
+
+STRLEN user:1000
+
+
+10. Get values of multiple keys user:1000 and user:2000
+
+
+MGET user:1000 user:2000
+
+
+11. Set key user:1000 with value "Alice" that expires in 3600 seconds
+
+
+SETEX user:1000 3600 "Alice"
+
+
+12. Set key user:2000 with value "Alice" only if it does not exist
+
+
+SETNX user:2000 "Alice"
+
+
+13. Get a substring (first 4 characters) of the string at key user:1000
+
+
+GETRANGE user:1000 0 3
+
+
+14. Replace part of the string at key user:1000 starting from index 3 with "xyz"
+
+
+SETRANGE user:1000 3 "xyz"
