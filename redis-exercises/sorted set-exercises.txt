@@ -1,0 +1,25 @@
+# Redis Sorted Set Exercises
+
+1. Add the element "Alice" with a score of 10 to the sorted set `scores`.  
+
+ZADD scores 10 "Alice"
+
+
+2. Show the elements from the sorted set `scores` with indexes from 0 to 2.  
+
+ZRANGE scores 0 2
+
+
+3. Remove the element "Bob" from the sorted set `scores`.  
+
+ZREM scores "Bob"
+
+
+4. Increase the score of the element "Charlie" by 5 in the sorted set `scores`.  
+
+ZINCRBY scores 5 "Charlie"
+
+
+5. Show all elements from the sorted set `scores` along with their scores.  
+
+ZRANGE scores 0 -1 WITHSCORES

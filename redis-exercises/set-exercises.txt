@@ -1,0 +1,20 @@
+# Redis Set Exercises
+
+1. Add the element "Alice" to the set `users`.  
+
+SADD users "Alice"
+
+
+2. Remove the element "Bob" from the set `users`.  
+
+SREM users "Bob"
+
+
+3. Show all elements of the set `users`.  
+
+SMEMBERS users
+
+
+4. Check if the element "Charlie" exists in the set `users`.  
+
+SISMEMBER users "Charlie"
