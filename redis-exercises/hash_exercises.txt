@@ -1,0 +1,24 @@
+# Redis Hash Exercises
+
+1. Set the field `name` with the value "Alice" and the field `age` with the value 30 for the key `user:1000` (two ways: older, modern).  
+
+// older  
+HMSET user:1000 name "Alice" age 30  
+
+// modern  
+HSET user:1000 name "Alice" age 30  
+
+
+2. Get the value of the field `name` from the hash `user:1000`.  
+
+HGET user:1000 name  
+
+
+3. Get all fields and values from the hash `user:1000`.  
+
+HGETALL user:1000  
+
+
+4. Delete the field `age` from the hash `user:1000`.  
+
+HDEL user:1000 age  
