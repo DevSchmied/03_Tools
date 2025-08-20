@@ -1,0 +1,55 @@
+# Redis List Exercises
+
+1. Add the element "task1" to the beginning of the list `queue`.  
+
+LPUSH queue "task1"
+
+
+2. Add the element "task2" to the end of the list `queue`.  
+
+RPUSH queue "task2"
+
+
+3. Remove and return the first element from the list `queue`.  
+
+LPOP queue
+
+
+4. Remove and return the last element from the list `queue`.  
+
+RPOP queue
+
+
+5. Get the first three elements of the list `queue`.  
+
+LRANGE queue 0 2
+
+
+6. Get the first element of the list `queue`.  
+
+LINDEX queue 0
+
+
+7. Get the number of elements in the list `queue`.  
+
+LLEN queue
+
+
+8. Insert "task1.5" before "task2" in the list `queue`.  
+
+LINSERT queue BEFORE "task2" "task1.5"
+
+
+9. Remove the first occurrence of the element "task1" from the list `queue`.  
+
+LREM queue 1 "task1"
+
+
+10. Replace the second element in the list `queue` with "new_task".  
+
+LSET queue 1 "new_task"
+
+
+11. Keep only the first three elements in the list `queue`.  
+
+LTRIM queue 0 2
