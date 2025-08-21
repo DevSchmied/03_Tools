@@ -12,6 +12,7 @@ func main() {
 	fmt.Println("Test")
 	ManageTestKey()
 	UpdateWeatherKeyWithTTL()
+	TemperatureWithTTL()
 }
 
 func ManageTestKey() {
@@ -131,4 +132,57 @@ func UpdateWeatherKeyWithTTL() {
 	exists, _ := rdb.Exists(ctx, key).Result()
 	fmt.Printf("Key exists after deletion? %v\n", exists > 0)
 	fmt.Println("The key deleted successfully.")
+}
+
+// ------------------- Exercise 3 -------------------
+func TemperatureWithTTL() {
+	/*
+	   Requirements:
+	   	1. Set the value "temperature:25" with a TTL of 60 seconds
+	   	2. Get the value and the remaining TTL
+	   	3. Increment the value by 5 atomically
+	   	4. Forcefully delete the key
+	*/
+	fmt.Println("\n\n-------------------Exercise 3-------------------")
+	/*
+	   1. Set the value "temperature:25" with a TTL of 60 seconds
+	*/
+
+	ctx := context.Background()
+	rdb := redis.NewClient(&redis.Options{Addr: "localhost:6379"})
+
+	err := rdb.SetEX(ctx, "temperature", 25, 60*time.Second).Err()
+	if err != nil {
+		fmt.Println("Error in SetEX:", err)
+		return
+	}
+	fmt.Println("temperature set successfully")
+
+	/*
+	   2. Get the value and the remaining TTL
+	*/
+
+	val, _ := rdb.Get(ctx, "temperature").Result()
+	ttl, _ := rdb.TTL(ctx, "temperature").Result()
+	fmt.Println("Value of temperature:", val)
+	fmt.Println("Remaining TTL:", ttl)
+
+	/*
+	   3. Increment the value by 5 atomically
+	*/
+
+	newVal, err := rdb.IncrBy(ctx, "temperature", 5).Result()
+	if err != nil {
+		fmt.Println("Error in IncrBy:", err)
+		return
+	}
+	fmt.Println("Value after increment:", newVal)
+
+	/*
+	   4. Forcefully delete the key
+	*/
+
+	rdb.Del(ctx, "temperature")
+	exists, _ := rdb.Exists(ctx, "temperature").Result()
+	fmt.Println("Exists after deletion:", exists > 0)
 }
