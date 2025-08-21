@@ -11,6 +11,7 @@ import (
 func main() {
 	fmt.Println("Test")
 	ManageTestKey()
+	UpdateWeatherKeyWithTTL()
 }
 
 func ManageTestKey() {
@@ -67,5 +68,39 @@ func ManageTestKey() {
 		return
 	}
 	fmt.Println("Exists after deletion:", result)
+
+}
+
+func UpdateWeatherKeyWithTTL() {
+	fmt.Println("\n\n-------------------Exercise 2-------------------")
+	/*
+	  Requirements:
+	   - Create a key weather:moscow with the value +25°C and a TTL of 1 hour
+	   - Check the remaining time to live of the key
+	   - Update the value to +28°C without changing the TTL
+	   - Delete the key before it expires
+	*/
+
+	ctx := context.Background()
+
+	rdb := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       0,
+	})
+
+	//  - Create a key weather:moscow with the value +25°C and a TTL of 1 hour
+	err := rdb.SetEX(ctx, "weather:moscow", "+25°C", 60*time.Minute).Err()
+	if err != nil {
+		fmt.Printf("Error in SetEX: %v\n", err)
+		return
+	}
+	fmt.Println("Value stored in Redis successfully")
+
+	// - Check the remaining time to live of the key
+
+	// - Update the value to +28°C without changing the TTL
+
+	// - Delete the key before it expires
 
 }

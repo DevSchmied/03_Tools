@@ -1,0 +1,13 @@
+1. Set the bit at offset 7 for the key user:1000 to the value 1.
+
+SETBIT user:1000 7 1
+
+
+2. Set the bit at offset 7 for the key user:1000 to the value 0.
+
+SETBIT user:1000 7 0
+
+
+3. Get the value of the bit at offset 7 for the key user:1000.
+
+GETBIT user:1000 7
