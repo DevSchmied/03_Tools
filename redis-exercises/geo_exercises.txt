@@ -1,0 +1,34 @@
+1. Add the geographical coordinates of the city Palermo (latitude 38.115556, longitude 13.361389) to the key cities.
+
+GEOADD cities 38.115556 13.361389 "Palermo"
+
+
+2. Add the coordinates of the city Catania (latitude 37.502669, longitude 15.087269) 
+and the city Messina (latitude 37.739831, longitude 14.907847) to the key cities.
+
+GEOADD cities 37.502669 15.087269 "Catania" 37.739831 14.907847 "Messina"
+
+
+3. Find the distance between Palermo and Catania in kilometers in the key cities.
+
+GEODIST cities "Palermo" "Catania" km
+
+
+4. Find all cities located within a radius of 100 km from the coordinates (longitude 15.087269, latitude 37.502669) in the key cities.
+
+GEORADIUS cities 15.087269 37.502669 100 km
+
+
+5. Find all cities located within a radius of 50 km from the city Catania in the key cities.
+
+GEORADIUSBYMEMBER cities "Catania" 50 km
+
+
+6. Get the coordinates of the cities Palermo and Catania from the key cities.
+
+GEOPOS cities "Palermo" "Catania"
+
+
+7. Get the geohashes of the cities Palermo and Catania in the key cities.
+
+GEOHASH cities "Palermo" "Catania"
