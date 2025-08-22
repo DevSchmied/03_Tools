@@ -23,6 +23,8 @@ func HashExercise() {
 	// "name" → "John Doe"
 	// "email" → "john@example.com"
 	// "login_count" → 0
+	// Increment login_count by 1
+	// Get all fields of the hash
 
 	ctx := context.Background()
 	rdb := redis.NewClient(&redis.Options{
