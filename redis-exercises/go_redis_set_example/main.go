@@ -18,6 +18,7 @@ func main() {
 	rdb := redis.NewClient(&redis.Options{
 		Addr: "localhost:6379",
 	})
+	defer rdb.Close()
 
 	articleTagsKey := "article:123:tags"
 

@@ -71,6 +71,7 @@ func UserVisitsHash() {
 
 	ctx := context.Background()
 	rdb := redis.NewClient(&redis.Options{Addr: "localhost:6379"})
+	defer rdb.Close()
 
 	// Create a hash user:100 with fields name and visits
 	err := rdb.HSet(ctx, "user:100",

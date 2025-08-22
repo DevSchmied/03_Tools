@@ -19,6 +19,7 @@ func main() {
 	rdb := redis.NewClient(&redis.Options{
 		Addr: "localhost:6379",
 	})
+	defer rdb.Close()
 
 	// - Add 3 tasks to the queue
 	err := rdb.RPush(ctx, "tasks:queue", "task1", "task2", "task3").Err()

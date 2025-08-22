@@ -35,6 +35,7 @@ func ManageTestKey() {
 		Password: "",
 		DB:       0,
 	})
+	defer rdb.Close()
 
 	fmt.Println("Redis client created:", rdb)
 
@@ -89,6 +90,7 @@ func UpdateWeatherKeyWithTTL() {
 		Password: "",
 		DB:       0,
 	})
+	defer rdb.Close()
 
 	//  - Create a key weather:moscow with the value +25°C and a TTL of 1 hour
 	const key = "weather:moscow"
@@ -150,6 +152,7 @@ func TemperatureWithTTL() {
 
 	ctx := context.Background()
 	rdb := redis.NewClient(&redis.Options{Addr: "localhost:6379"})
+	defer rdb.Close()
 
 	err := rdb.SetEX(ctx, "temperature", 25, 60*time.Second).Err()
 	if err != nil {
