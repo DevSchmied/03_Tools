@@ -1,0 +1,23 @@
+1. Publish a message "Hello World" to the channel news.
+
+PUBLISH news "Hello World"
+
+
+2. Subscribe to the channels news and sports.
+
+SUBSCRIBE news sports
+
+
+3. Subscribe to all channels starting with news.
+
+PSUBSCRIBE news.*
+
+
+4. Unsubscribe from the channel sports.
+
+UNSUBSCRIBE sports
+
+
+5. Unsubscribe from all pattern subscriptions matching news.*.
+
+PUNSUBSCRIBE news.*
