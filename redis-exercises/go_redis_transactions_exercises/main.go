@@ -84,4 +84,83 @@ func main() {
 	if err != nil {
 		fmt.Println("Buy error:", err)
 	}
+
+	fmt.Println("=== Starting the Redis transaction exercise: incrementing user counters ===")
+
+	// Task: Manage user counters "visits" and "signups" in Redis using two transaction methods: TxPipelined, TxPipeline.
+
+	// Increment counters using TxPipelined
+	visits, signups := IncrementWithTxPipelined(ctx, rdb)
+	fmt.Printf("After TxPipelined -> visits: %s, signups: %s\n", visits, signups)
+
+	// Increment counters using TxPipeline
+	visits, signups = IncrementWithTxPipeline(ctx, rdb)
+	fmt.Printf("After TxPipeline -> visits: %s, signups: %s\n", visits, signups)
+}
+
+// Increment counters using TxPipelined
+func IncrementWithTxPipelined(ctx context.Context, rdb *redis.Client) (string, string) {
+
+	// Initialize counters
+	rdb.SetEX(ctx, "visits", 1, time.Hour)
+	rdb.SetEX(ctx, "signups", 0, time.Hour)
+
+	// Start transaction
+	_, err := rdb.TxPipelined(ctx, func(pipe redis.Pipeliner) error {
+		// Queue increment commands
+		pipe.IncrBy(ctx, "visits", 1)
+		pipe.IncrBy(ctx, "signups", 1)
+		return nil
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	// Get updated values
+	valueVisits, _ := rdb.Get(ctx, "visits").Result()
+	valueSignups, _ := rdb.Get(ctx, "signups").Result()
+
+	return valueVisits, valueSignups
+}
+
+// Increment counters using TxPipeline with optional discard
+func IncrementWithTxPipeline(ctx context.Context, rdb *redis.Client) (string, string) {
+
+	// Initialize counters
+	rdb.SetEX(ctx, "visits", 1, time.Hour)
+	rdb.SetEX(ctx, "signups", 0, time.Hour)
+
+	// Create pipeline for transaction
+	pipe := rdb.TxPipeline()
+
+	// Queue increment commands
+	pipe.IncrBy(ctx, "visits", 1)
+	pipe.IncrBy(ctx, "signups", 1)
+
+	// Example condition to cancel transaction
+	cancelTransaction := false
+
+	if cancelTransaction {
+		// Discard transaction
+		err := pipe.Discard()
+		if err != nil {
+			fmt.Println("Discard error:", err)
+		} else {
+			fmt.Println("Transaction was discarded, counters not updated")
+		}
+	} else {
+		// Execute transaction
+		_, err := pipe.Exec(ctx)
+		if err != nil {
+			fmt.Println("Exec error:", err)
+		} else {
+			fmt.Println("Transaction executed successfully")
+		}
+	}
+
+	// Get updated values
+	valueVisits, _ := rdb.Get(ctx, "visits").Result()
+	valueSignups, _ := rdb.Get(ctx, "signups").Result()
+
+	return valueVisits, valueSignups
 }
