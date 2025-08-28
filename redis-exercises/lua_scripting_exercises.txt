@@ -1,0 +1,51 @@
+# Redis Lua Scripting Cheat Sheet
+
+
+1. Set a value for a key
+
+EVAL "return redis.call('set', KEYS[1], ARGV[1])" 1 mykey myvalue
+
+
+2. Get the value of a key
+
+EVAL "return redis.call('get', KEYS[1])" 1 mykey
+
+
+3. Increment a key by 1
+
+EVAL "return redis.call('incr', KEYS[1])" 1 counter
+
+
+4. Increment a key by an arbitrary number (e.g., 5)
+
+EVAL "return redis.call('incrby', KEYS[1], ARGV[1])" 1 counter 5
+
+
+5. Push an element to the end of a list
+
+EVAL "return redis.call('rpush', KEYS[1], ARGV[1])" 1 users:1000:transactions "Spent 50 on a book"
+
+
+6. Pop an element from the left of a list
+
+EVAL "return redis.call('lpop', KEYS[1])" 1 users:1000:transactions
+
+
+7. Set a value only if the key does not exist (SETNX equivalent)
+
+EVAL "if redis.call('exists', KEYS[1]) == 0 then return redis.call('set', KEYS[1], ARGV[1]) else return nil end" 1 lock_key "locked"
+
+
+8. Load a Lua script into Redis and get its SHA1 hash
+
+SCRIPT LOAD "return redis.call('get', KEYS[1])"
+
+
+9. Check if a script is already loaded in Redis by its SHA1 hash
+
+SCRIPT EXISTS <sha1hash>
+
+
+10. Run a Lua script by its SHA1 hash (EVALSHA)
+
+EVALSHA <sha1hash> 1 mykey
