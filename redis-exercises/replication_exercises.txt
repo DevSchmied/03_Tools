@@ -1,0 +1,28 @@
+1. How to connect a replica server to the primary server with IP 192.168.1.100 and port 6379?
+
+REPLICAOF 192.168.1.100 6379
+
+
+2. How to check the replication status on the replica server and see which master it is connected to?
+
+INFO replication
+
+
+3. How to check the list of all connected replicas on the primary server?
+
+INFO replication
+
+
+4. How to set the value "value1" for key key1 on the primary server to test replication?
+
+SET key1 "value1"
+
+
+5. How to verify on the replica server that the key key1 actually contains the value "value1" and get an immediate check result (OK or MISMATCH)?
+
+EVAL "if redis.call('GET', KEYS[1]) == ARGV[1] then return 'OK' else return 'MISMATCH' end" 1 key1 value1
+
+
+6. How to disconnect the replica server from the master and make it an independent Redis server?
+
+REPLICAOF NO ONE
