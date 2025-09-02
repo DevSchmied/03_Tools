@@ -1,0 +1,48 @@
+1. How to set the maximum memory for Redis to 256 MB?
+
+CONFIG SET maxmemory 256mb
+
+
+2. How to set the eviction policy so that the least recently used keys among all are removed?
+
+CONFIG SET maxmemory-policy allkeys-lru
+
+
+3. What eviction policies can be configured in Redis?
+
+# no command, just knowledge: noeviction, allkeys-lru, volatile-lru, allkeys-random, volatile-random, volatile-ttl
+
+
+4. How to create a key named "key" with value "value" and a time-to-live of 60 seconds?
+
+SET key value EX 60
+
+
+5. How to get memory usage information in Redis?
+
+INFO memory
+
+
+6. How to change the maximum memory for Redis to 128 MB?
+
+CONFIG SET maxmemory 128mb
+
+
+7. How to reset the eviction policy to allkeys-lru after changing memory?
+
+CONFIG SET maxmemory-policy allkeys-lru
+
+
+8. How to perform a benchmark test on Redis with 100,000 requests?
+
+redis-benchmark -n 100000 -q
+
+
+9. How to monitor all commands executed on Redis in real-time?
+
+MONITOR
+
+
+10. How to get detailed memory statistics in Redis?
+
+MEMORY STATS
