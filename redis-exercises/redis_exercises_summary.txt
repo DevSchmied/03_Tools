@@ -1,0 +1,161 @@
+Knowledge Check (Practical Exercises)
+
+Exercise #1: Basic Key Operations
+Description: In this exercise, you will learn how to set, get, and delete keys in Redis, as well as set key expiration time.
+Tasks:
+
+Set the value of the key `username` to `john_doe`
+
+SET username john_doe
+
+
+Get the value of the key `username` and display it
+
+GET username
+
+
+Set the expiration time of the key `username` to 60 seconds
+
+EXPIRE username 60
+
+
+Check if the key `username` exists
+
+EXISTS username
+
+
+Delete the key `username`
+
+DEL username
+
+
+---
+
+Exercise #2: Working with Lists
+Description: In this exercise, you will learn how to work with Redis lists, adding and removing elements and retrieving list items.
+Tasks:
+
+Create a list named `tasks` and add elements `task1`, `task2`, `task3`
+
+LPUSH tasks task1
+LPUSH tasks task2
+LPUSH tasks task3
+
+
+Get and display the first element of the list `tasks`
+
+LPOP tasks
+
+
+Delete the first element of the list `tasks`
+
+LPOP tasks
+
+
+Add the element `task4` to the end of the list `tasks`
+
+RPUSH tasks task4
+
+
+Get and display all elements of the list `tasks`
+
+LRANGE tasks 0 -1
+
+
+---
+
+Exercise #3: Working with Sets
+Description: In this exercise, you will learn how to work with Redis sets, adding and removing elements, and checking for element existence.
+Tasks:
+
+Create a set named `fruits` and add elements `apple`, `banana`, `cherry`
+
+SADD fruits apple
+SADD fruits banana
+SADD fruits cherry
+
+
+Check if the element `apple` exists in the set `fruits`
+
+SISMEMBER fruits apple
+
+
+Add the element `orange` to the set `fruits`
+
+SADD fruits orange
+
+
+Remove the element `banana` from the set `fruits`
+
+SREM fruits banana
+
+
+Get and display all elements of the set `fruits`
+
+SMEMBERS fruits
+
+
+---
+
+Exercise #4: Working with Hashes
+Description: In this exercise, you will learn how to work with Redis hashes, setting, getting, and updating hash fields.
+Tasks:
+
+Create a hash named `user` and set the fields `name` to `Alice`, `age` to `30`, and `email` to `alice@example.com`
+
+HSET user name Alice
+HSET user age 30
+HSET user email alice@example.com
+
+
+Get the value of the field `name` from the hash `user` and display it
+
+HGET user name
+
+
+Update the value of the field `age` in the hash `user` to `31`
+
+HSET user age 31
+
+
+Add a new field `phone` to the hash `user` with the value `1234567890`
+
+HSET user phone 1234567890
+
+
+Get and display all fields and values of the hash `user`
+
+HGETALL user
+
+
+---
+
+Exercise #5: Working with Sorted Sets
+Description: In this exercise, you will learn how to work with Redis sorted sets, adding and removing elements, and retrieving elements in ascending and descending order.
+Tasks:
+
+Create a sorted set named `scores` and add elements `player1` with score `100`, `player2` with score `200`, and `player3` with score `150`
+
+ZADD scores 100 player1
+ZADD scores 200 player2
+ZADD scores 150 player3
+
+
+Get and display all elements of the sorted set `scores` in ascending order
+
+ZRANGE scores 0 -1 WITHSCORES
+
+
+Increment the score of `player1` by 50
+
+ZINCRBY scores 50 player1
+
+
+Remove the element `player2` from the sorted set `scores`
+
+ZREM scores player2
+
+
+Get and display all elements of the sorted set `scores` in descending order
+
+ZREVRANGE scores 0 -1 WITHSCORES
