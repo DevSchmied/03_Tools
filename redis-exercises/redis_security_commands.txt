@@ -1,0 +1,75 @@
+1. How to restrict Redis access only to local connections on IP 127.0.0.1?
+
+bind 127.0.0.1
+
+
+2. How to enable authentication with the password yo-cq-password?
+
+requirepass yo-cq-password
+
+
+3. How should a client authenticate with the password yo-cq-password?
+
+AUTH yo-cq-password
+
+
+4. How to completely disable the commands CONFIG, FLUSHALL and SHUTDOWN?
+
+rename-command CONFIG ""
+rename-command FLUSHALL ""
+rename-command SHUTDOWN ""
+
+
+5. How to rename the CONFIG command to custom_config_command?
+
+rename-command CONFIG custom_config_command	
+
+
+6. How to configure encrypted Redis connection via stunnel with the certificate /path/to/your/cert.pem and key /path/to/your/key.pem?
+
+[redis]
+accept = 6379
+connect = 127.0.0.1:6379
+cert = /path/to/your/cert.pem
+key = /path/to/your/key.pem
+
+
+7. How to allow access to Redis on port 6379 only from IP address 192.168.1.100 using ufw?
+
+ufw allow from 192.168.1.100 to any port 6379
+
+
+8. How to enable Redis logging into the file /var/log/redis/redis.log with the log level notice?
+
+logfile /var/log/redis/redis.log
+loglevel notice
+
+
+9. How to view all connected clients in Redis?
+
+CLIENT LIST
+
+
+10. How to limit the maximum number of client connections in Redis to 100?
+
+maxclients 100
+
+
+11. How to set the timeout for inactive clients to 300 seconds?
+
+timeout 300
+
+
+12. How to create a user limited_user with the password password, access only to keys keys:* and permission to use only GET and SET commands?
+
+ACL SETUSER limited_user on >password ~keys:* +get +set
+
+
+13. How to save ACL settings?
+
+ACL SAVE
+
+
+14. How to list all ACL users and their permissions?
+
+ACL LIST
