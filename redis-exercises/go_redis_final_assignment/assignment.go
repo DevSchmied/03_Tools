@@ -25,7 +25,7 @@ var ctx = context.Background()
 
 func main() {
 
-	// Step 1: Connect to Redis and check the connection with PING
+	// Step 1: establishing a connection and checking it with PING
 
 	client := redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
@@ -40,4 +40,22 @@ func main() {
 	}
 
 	fmt.Println("Connected to Redis successfully")
+
+	// Step 2: writing and reading simple key-value data
+
+	// Write data
+	err = client.Set(ctx, "username", "golang_user", 0).Err()
+	if err != nil {
+		fmt.Println("Write error:", err)
+		return
+	}
+
+	// Read data
+	val, err := client.Get(ctx, "username").Result()
+	if err != nil {
+		fmt.Println("Read error:", err)
+		return
+	}
+
+	fmt.Println("Value:", val) // Output: golang_user
 }
