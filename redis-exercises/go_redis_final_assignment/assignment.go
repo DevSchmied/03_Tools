@@ -17,6 +17,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/go-redis/redis/v8"
 )
@@ -58,4 +59,15 @@ func main() {
 	}
 
 	fmt.Println("Value:", val) // Output: golang_user
+
+	// Step 3: working with TTL (Time-To-Live)
+
+	// Write key with TTL
+	err = client.Set(ctx, "temp_key", "some_value", time.Minute*5).Err()
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
+	fmt.Println("Key 'temp_key' set with TTL = 5 minutes")
 }
