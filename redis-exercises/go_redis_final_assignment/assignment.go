@@ -94,4 +94,24 @@ func main() {
 	client.Del(ctx, "username")
 	fmt.Println("Key 'username' deleted successfully")
 
+	// Step 6: implement Redis caching mechanism
+
+	getDataWithCache(client, "query_result")
+
+}
+
+func getDataWithCache(client *redis.Client, key string) string {
+	// First, check cache
+	val, err := client.Get(ctx, key).Result()
+	if err == nil {
+		fmt.Println("Fetched from cache:", val)
+		return val
+	}
+
+	// If not in cache, simulate database query
+	data := "Query result"
+	client.Set(ctx, key, data, time.Minute*10) // Cache for 10 minutes
+
+	fmt.Println("Fetched from database and stored in cache:", data)
+	return data
 }
