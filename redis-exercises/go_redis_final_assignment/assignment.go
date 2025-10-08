@@ -26,7 +26,7 @@ var ctx = context.Background()
 
 func main() {
 
-	// Step 1: establishing a connection and checking it with PING
+	// Step 1: establish a connection and check it with PING
 
 	client := redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
@@ -42,7 +42,7 @@ func main() {
 
 	fmt.Println("Connected to Redis successfully")
 
-	// Step 2: writing and reading simple key-value data
+	// Step 2: write and read simple key-value data
 
 	// Write data
 	err = client.Set(ctx, "username", "golang_user", 0).Err()
@@ -60,7 +60,7 @@ func main() {
 
 	fmt.Println("Value:", val) // Output: golang_user
 
-	// Step 3: working with TTL (Time-To-Live)
+	// Step 3: work with TTL (Time-To-Live)
 
 	// Write key with TTL
 	err = client.Set(ctx, "temp_key", "some_value", time.Minute*5).Err()
@@ -70,4 +70,28 @@ func main() {
 	}
 
 	fmt.Println("Key 'temp_key' set with TTL = 5 minutes")
+
+	// Step 4: work with TTL (Time-To-Live)
+
+	// Lists
+	client.RPush(ctx, "tasks", "task1", "task2", "task3")
+	tasks, _ := client.LRange(ctx, "tasks", 0, -1).Result()
+	fmt.Println("Task list:", tasks)
+
+	// Hashes
+	client.HSet(ctx, "user:1001", "name", "Alice", "age", "30")
+	user, _ := client.HGetAll(ctx, "user:1001").Result()
+	fmt.Println("User:", user)
+
+	// Sets
+	client.SAdd(ctx, "tags", "golang", "redis", "backend")
+	tags, _ := client.SMembers(ctx, "tags").Result()
+	fmt.Println("Tags:", tags)
+
+	// Step 5: delete keys
+
+	// Delete key
+	client.Del(ctx, "username")
+	fmt.Println("Key 'username' deleted successfully")
+
 }
